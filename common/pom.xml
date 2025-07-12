@@ -1,0 +1,14 @@
+<project>
+  <parent>
+    <groupId>com.shopsphere</groupId>
+    <artifactId>shopsphere-backend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>common</artifactId>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+  </dependencies>
+</project>
