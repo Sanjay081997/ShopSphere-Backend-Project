@@ -24,4 +24,14 @@
       <scope>runtime</scope>
     </dependency>
   </dependencies>
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.0.6</version> <!-- Use your project’s Spring Boot
+				version -->
+			</plugin>
+		</plugins>
+	</build>
 </project>
