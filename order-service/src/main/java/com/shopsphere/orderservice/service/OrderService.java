@@ -1,7 +1,7 @@
 package com.shopsphere.orderservice.service;
 
 import com.shopsphere.orderservice.entity.OrderserviceEntity;
-import com.shopsphere.orderservice.repository.OrderServiceRepository;
+import com.shopsphere.orderservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
-    private final OrderServiceRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    public OrderService(OrderServiceRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
