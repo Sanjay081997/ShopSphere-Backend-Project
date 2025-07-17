@@ -4,25 +4,19 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order_service")
-public class OrderserviceEntity {
+@Table(name = "orders")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String product;
-
     private int quantity;
-
     private double price;
-
     private LocalDateTime orderDate;
 
-    public OrderserviceEntity() {}
-
-    // Getters and setters
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }

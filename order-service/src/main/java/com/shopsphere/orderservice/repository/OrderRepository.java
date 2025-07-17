@@ -1,9 +1,7 @@
 package com.shopsphere.orderservice.repository;
 
-import com.shopsphere.orderservice.entity.OrderserviceEntity;
+import com.shopsphere.orderservice.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface OrderRepository extends JpaRepository<OrderserviceEntity, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

@@ -1,7 +1,9 @@
 package com.shopsphere.orderservice.controller;
 
-import com.shopsphere.orderservice.entity.OrderserviceEntity;
+import com.shopsphere.orderservice.dto.OrderRequest;
+import com.shopsphere.orderservice.entity.Order;
 import com.shopsphere.orderservice.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,39 +13,25 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    private final OrderService orderService;
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+    @Autowired
+    private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderserviceEntity> createOrder(@RequestBody OrderserviceEntity order) {
-        OrderserviceEntity savedOrder = orderService.createOrder(order);
-        return ResponseEntity.ok(savedOrder);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<OrderserviceEntity>> getAllOrders() {
-        List<OrderserviceEntity> orders = orderService.getAllOrders();
-        return ResponseEntity.ok(orders);
+    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest request) {
+        Order createdOrder = orderService.createOrder(request);
+        return ResponseEntity.ok(createdOrder);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderserviceEntity> getOrderById(@PathVariable Long id) {
-        return orderService.getOrderById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.ok(order);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<OrderserviceEntity> updateOrder(@PathVariable Long id, @RequestBody OrderserviceEntity order) {
-        try {
-            OrderserviceEntity updatedOrder = orderService.updateOrder(id, order);
-            return ResponseEntity.ok(updatedOrder);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
     @DeleteMapping("/{id}")
