@@ -1,8 +1,8 @@
 package com.shopsphere.productservice.controller;
 
-import com.shopsphere.productservice.entity.ProductEntity;
+import com.shopsphere.productservice.dto.ProductRequest;
+import com.shopsphere.productservice.entity.Product;
 import com.shopsphere.productservice.service.ProductService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -18,38 +17,22 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductEntity> createProduct(@RequestBody ProductEntity product) {
-        ProductEntity savedProduct = productService.createProduct(product);
-        return ResponseEntity.ok(savedProduct);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ProductEntity>> getAllProducts() {
-        List<ProductEntity> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
+    public Product createProduct(@RequestBody ProductRequest request) {
+        return productService.createProduct(request);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductEntity> getProductById(@PathVariable Long id) {
-        return productService.getProductById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Product getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductEntity> updateProduct(@PathVariable Long id, @RequestBody ProductEntity product) {
-        return productService.updateProduct(id, product)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        boolean deleted = productService.deleteProduct(id);
-        if (deleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
     }
 }

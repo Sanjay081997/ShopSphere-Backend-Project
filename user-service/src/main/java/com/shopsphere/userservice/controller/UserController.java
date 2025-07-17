@@ -1,46 +1,38 @@
-package com.shopsphere.userservice.entity;
+package com.shopsphere.userservice.controller;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.shopsphere.userservice.dto.UserRequest;
+import com.shopsphere.userservice.entity.User;
+import com.shopsphere.userservice.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
-@Entity
-public class UserEntity {
+import java.util.List;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    private final UserService userService;
 
-    private String username;
-    private String email;
-
-    // No-args constructor
-    public UserEntity() {}
-
-    // Getters and setters
-
-    public Long getId() {
-        return id;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @PostMapping
+    public User createUser(@RequestBody UserRequest request) {
+        return userService.createUser(request);
     }
 
-    public String getUsername() {
-        return username;
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
     }
 }
