@@ -15,10 +15,11 @@ public class UserEntity {
     private String username;
     private String email;
 
-    // No-args constructor
-    public UserEntity() {}
+    // No-argument constructor
+    public UserEntity() {
+    }
 
-    // Getters and setters
+    // Getters and setters with correct return types and syntax
 
     public Long getId() {
         return id;
